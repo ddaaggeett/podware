@@ -1,0 +1,3 @@
+rootProject.name = 'podware_camera'
+
+include ':app'
