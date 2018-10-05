@@ -1,49 +1,97 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
+import React, { Component } from 'react'
+import {
+    StatusBar,
+    StyleSheet,
+    Text,
+    View,
+} from 'react-native'
+import { RNCamera } from 'react-native-camera'
+import {
+    serverIP,
+    socketPort,
+} from './config'
+import io from 'socket.io-client/dist/socket.io'
+const socket = io.connect('http://' + serverIP + ':' + socketPort)
 
-import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
-
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
-  android:
-    'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
-
-type Props = {};
 export default class App extends Component<Props> {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to React Native!</Text>
-        <Text style={styles.instructions}>To get started, edit App.js</Text>
-        <Text style={styles.instructions}>{instructions}</Text>
-      </View>
-    );
-  }
+
+    constructor() {
+        super()
+    }
+
+    componentWillMount() {
+        StatusBar.setHidden(true)
+    }
+
+    componentDidMount() {
+        socket.on('capture', () => this.takePicture())
+        socket.on('startRecording', () => {
+            console.log('start video')
+            this.startRecording()
+        })
+        socket.on('stopRecording', () => {
+            this.camera.stopRecording()
+        })
+    }
+
+    takePicture = async function() {
+        if (this.camera) {
+            const options = {
+                quality: 0.5,
+                base64: true
+            }
+            this.camera.takePictureAsync(options)
+            .then((data) => {
+                console.log(data.uri);
+            })
+        }
+    }
+
+    startRecording = async function() {
+        if(this.camera) {
+            const options = {
+                mute: true,
+            }
+            this.camera.recordAsync(options)
+            .then((data) => {
+                console.log('stop video')
+                console.log(data.uri)
+            })
+        }
+    }
+
+    render() {
+        return (
+            <View style={styles.container}>
+                <RNCamera
+                    ref={cam => { this.camera = cam }}
+                    style={styles.preview}
+                    permissionDialogTitle={'Permission to use camera'}
+                    permissionDialogMessage={'We need your permission to use your camera phone'}
+                />
+            </View>
+        )
+    }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+    container: {
+        flex: 1,
+        flexDirection: 'column',
+        backgroundColor: 'black'
+    },
+    preview: {
+        flex: 1,
+        justifyContent: 'flex-end',
+        alignItems: 'center'
+    },
+    capture: {
+        flex: 0,
+        backgroundColor: '#fff',
+        borderRadius: 5,
+        padding: 15,
+        paddingHorizontal: 20,
+        alignSelf: 'center',
+        margin: 20
+    },
 });
