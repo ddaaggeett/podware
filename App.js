@@ -10,6 +10,7 @@ import {
     serverIP,
     socketPort,
 } from './config'
+import RNFetchBlob from 'rn-fetch-blob'
 import io from 'socket.io-client/dist/socket.io'
 const socket = io.connect('http://' + serverIP + ':' + socketPort)
 
@@ -55,7 +56,17 @@ export default class App extends Component<Props> {
             this.camera.recordAsync(options)
             .then((data) => {
                 console.log('stop video')
-                console.log(data.uri)
+                const videoFile = data.uri.split('/cache/Camera/')[1]
+                const movieDir = RNFetchBlob.fs.dirs.MovieDir + '/'
+                const pullFile = movieDir + videoFile
+                RNFetchBlob.fs.cp(data.uri, pullFile)
+                .then(() => {
+                    socket.emit('videoReadyToPull', pullFile)
+                })
+                .catch((err) => {
+                    console.log('ERROR copying file from cache')
+                    console.log(err)
+                })
             })
         }
     }
