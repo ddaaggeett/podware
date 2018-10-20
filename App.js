@@ -11,8 +11,10 @@ import {
     socketPort,
 } from './config'
 import RNFetchBlob from 'rn-fetch-blob'
+import DeviceInfo from 'react-native-device-info'
 import io from 'socket.io-client/dist/socket.io'
 const socket = io.connect('http://' + serverIP + ':' + socketPort)
+const device = DeviceInfo.getSerialNumber()
 
 export default class App extends Component<Props> {
 
@@ -58,10 +60,10 @@ export default class App extends Component<Props> {
                 console.log('stop video')
                 const videoFile = data.uri.split('/cache/Camera/')[1]
                 const movieDir = RNFetchBlob.fs.dirs.MovieDir + '/'
-                const pullFile = movieDir + videoFile
-                RNFetchBlob.fs.cp(data.uri, pullFile)
+                const pullFilePath = movieDir + videoFile
+                RNFetchBlob.fs.cp(data.uri, pullFilePath)
                 .then(() => {
-                    socket.emit('videoReadyToPull', pullFile)
+                    socket.emit('videoReadyToPull', {device,pullFilePath})
                 })
                 .catch((err) => {
                     console.log('ERROR copying file from cache')

@@ -30,6 +30,9 @@ allprojects {
         }
         google()
     }
+    configurations.all {
+        resolutionStrategy.force "com.android.support:support-v4:26.1.0"
+    }
 }
 
 
