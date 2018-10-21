@@ -4,6 +4,7 @@ import {
     StyleSheet,
     Text,
     View,
+    PermissionsAndroid,
 } from 'react-native'
 import { RNCamera } from 'react-native-camera'
 import {
@@ -20,6 +21,7 @@ export default class App extends Component<Props> {
 
     constructor() {
         super()
+        this.requestStoragePermission()
     }
 
     componentWillMount() {
@@ -70,6 +72,25 @@ export default class App extends Component<Props> {
                     console.log(err)
                 })
             })
+        }
+    }
+
+    requestStoragePermission = async function() {
+        try {
+            const granted = await PermissionsAndroid.request(
+                PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+                {
+                    'title': 'Storage Permission',
+                    'message': 'podware-camera needs yout permission to access this device\'s storage'
+                }
+            )
+            if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+                console.log('You can use this device\'s storage')
+            } else {
+                console.log('go to app settings for podware-camera and allow storage permission')
+            }
+        } catch (err) {
+            console.warn(err)
         }
     }
 
