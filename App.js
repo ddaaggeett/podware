@@ -21,6 +21,9 @@ export default class App extends Component<Props> {
 
     constructor() {
         super()
+        this.state = {
+            recording: false,
+        }
         this.requestStoragePermission()
     }
 
@@ -57,8 +60,10 @@ export default class App extends Component<Props> {
             const options = {
                 mute: true,
             }
+            this.setState({recording: true})
             this.camera.recordAsync(options)
             .then((data) => {
+                this.setState({recording: false})
                 console.log('video stopped recording on ' + device)
                 const movieDir = RNFetchBlob.fs.dirs.MovieDir + '/'
                 const pullFilePath = movieDir + timestamp + '_' + device + '.mp4'
@@ -95,7 +100,7 @@ export default class App extends Component<Props> {
 
     render() {
         return (
-            <View style={styles.container}>
+            <View style={this.state.recording ? styles.recording : styles.notRecording}>
                 <RNCamera
                     ref={cam => { this.camera = cam }}
                     style={styles.preview}
@@ -108,23 +113,23 @@ export default class App extends Component<Props> {
 }
 
 const styles = StyleSheet.create({
-    container: {
+    recording: {
         flex: 1,
         flexDirection: 'column',
-        backgroundColor: 'black'
+        backgroundColor: 'black',
+        borderWidth: 5,
+        borderColor: '#f00'
+    },
+    notRecording: {
+        flex: 1,
+        flexDirection: 'column',
+        backgroundColor: 'black',
+        borderWidth: 5,
+        borderColor: '#0f0'
     },
     preview: {
         flex: 1,
         justifyContent: 'flex-end',
         alignItems: 'center'
-    },
-    capture: {
-        flex: 0,
-        backgroundColor: '#fff',
-        borderRadius: 5,
-        padding: 15,
-        paddingHorizontal: 20,
-        alignSelf: 'center',
-        margin: 20
     },
 });
