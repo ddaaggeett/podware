@@ -30,9 +30,9 @@ export default class App extends Component<Props> {
 
     componentDidMount() {
         socket.on('capture', () => this.takePicture())
-        socket.on('startRecording', () => {
-            console.log('start video')
-            this.startRecording()
+        socket.on('startRecording', (timestamp) => {
+            console.log('video started recording on ' + device)
+            this.startRecording(timestamp)
         })
         socket.on('stopRecording', () => {
             this.camera.stopRecording()
@@ -52,17 +52,16 @@ export default class App extends Component<Props> {
         }
     }
 
-    startRecording = async function() {
+    startRecording = async function(timestamp) {
         if(this.camera) {
             const options = {
                 mute: true,
             }
             this.camera.recordAsync(options)
             .then((data) => {
-                console.log('stop video')
-                const videoFile = data.uri.split('/cache/Camera/')[1]
+                console.log('video stopped recording on ' + device)
                 const movieDir = RNFetchBlob.fs.dirs.MovieDir + '/'
-                const pullFilePath = movieDir + videoFile
+                const pullFilePath = movieDir + timestamp + '_' + device + '.mp4'
                 RNFetchBlob.fs.cp(data.uri, pullFilePath)
                 .then(() => {
                     socket.emit('videoReadyToPull', {device,pullFilePath})
