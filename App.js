@@ -32,6 +32,7 @@ export default class App extends Component<Props> {
     }
 
     componentDidMount() {
+        socket.emit('cameraConnected', device)
         socket.on('capture', () => this.takePicture())
         socket.on('startRecording', (timestamp) => {
             console.log('video started recording on ' + device)
@@ -69,7 +70,7 @@ export default class App extends Component<Props> {
                 const pullFilePath = movieDir + timestamp + '_' + device + '.mp4'
                 RNFetchBlob.fs.cp(data.uri, pullFilePath)
                 .then(() => {
-                    socket.emit('videoReadyToPull', {device,pullFilePath})
+                    socket.emit('videoReadyToPull', {device,pullFilePath,timestamp})
                 })
                 .catch((err) => {
                     console.log('ERROR copying file from cache')
