@@ -10,6 +10,7 @@ import { RNCamera } from 'react-native-camera'
 import {
     serverIP,
     socketPort,
+    podwareCameraDir,
 } from './config'
 import RNFetchBlob from 'rn-fetch-blob'
 import DeviceInfo from 'react-native-device-info'
@@ -25,6 +26,23 @@ export default class App extends Component<Props> {
             recording: false,
         }
         this.requestStoragePermission()
+
+        RNFetchBlob.fs.isDir(podwareCameraDir)
+        .then(isDir => {
+            if(!isDir) {
+                RNFetchBlob.fs.mkdir(podwareCameraDir)
+                .then(() => {
+                    console.log('successfully created ' + podwareCameraDir)
+                })
+                .catch((err) => {
+                    console.log('error creating ' + podwareCameraDir)
+                    console.log(err)
+                })
+            }
+            else {
+                console.log(podwareCameraDir + ' already exists')
+            }
+        })
     }
 
     componentWillMount() {
@@ -66,8 +84,7 @@ export default class App extends Component<Props> {
             .then((data) => {
                 this.setState({recording: false})
                 console.log('video stopped recording on ' + device)
-                const movieDir = RNFetchBlob.fs.dirs.MovieDir + '/'
-                const pullFilePath = movieDir + timestamp + '_' + device + '.mp4'
+                const pullFilePath = podwareCameraDir + timestamp + '_' + device + '.mp4'
                 RNFetchBlob.fs.cp(data.uri, pullFilePath)
                 .then(() => {
                     socket.emit('videoReadyToPull', {device,pullFilePath,timestamp})
