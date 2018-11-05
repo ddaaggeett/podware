@@ -14,6 +14,7 @@ import {
 } from './config'
 import RNFetchBlob from 'rn-fetch-blob'
 import DeviceInfo from 'react-native-device-info'
+import KeepAwake from 'react-native-keep-awake'
 import io from 'socket.io-client/dist/socket.io'
 const socket = io.connect('http://' + serverIP + ':' + socketPort)
 const device = DeviceInfo.getSerialNumber()
@@ -22,6 +23,7 @@ export default class App extends Component<Props> {
 
     constructor() {
         super()
+        KeepAwake.activate()
         this.state = {
             recording: false,
         }
