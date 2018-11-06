@@ -53,6 +53,7 @@ export default class App extends Component<Props> {
 
     componentDidMount() {
         socket.emit('cameraConnected', device)
+        socket.on('queryCamera', () => socket.emit('cameraConnected', device))
         socket.on('capture', () => this.takePicture())
         socket.on('startRecording', (timestamp) => {
             console.log('video started recording on ' + device)
