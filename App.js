@@ -85,12 +85,17 @@ export default class App extends Component<Props> {
             this.setState({recording: true})
             this.camera.recordAsync(options)
             .then((data) => {
+                const endTime = Date.now()
                 this.setState({recording: false})
-                console.log('video stopped recording on ' + device)
                 const pullFilePath = podwareCameraDir + timestamp + '_' + device + '.mp4'
                 RNFetchBlob.fs.cp(data.uri, pullFilePath)
                 .then(() => {
-                    socket.emit('videoReadyToPull', {device,pullFilePath,timestamp})
+                    RNFetchBlob.fs.stat(pullFilePath)
+                    .then(stats => {
+                        const fileSize = stats.size
+                        socket.emit('videoReadyToPull', {device,fileSize,pullFilePath,timestamp,endTime})
+                    })
+                    .catch(err => console.log(err))
                 })
                 .catch((err) => {
                     console.log('ERROR copying file from cache')
