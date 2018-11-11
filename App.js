@@ -83,10 +83,12 @@ export default class App extends Component<Props> {
                 mute: true,
             }
             this.setState({recording: true})
+            socket.emit('toggleCameraRecording',device)
             this.camera.recordAsync(options)
             .then((data) => {
                 const endTime = Date.now()
                 this.setState({recording: false})
+                socket.emit('toggleCameraRecording',device)
                 const pullFilePath = podwareCameraDir + timestamp + '_' + device + '.mp4'
                 RNFetchBlob.fs.cp(data.uri, pullFilePath)
                 .then(() => {
