@@ -91,14 +91,19 @@ export default class App extends Component<Props> {
                 socket.emit('toggleCameraRecording',device)
                 const pullFilePath = podwareCameraDir + timestamp + '_' + device + '.mp4'
                 RNFetchBlob.fs.cp(data.uri, pullFilePath)
-                .then(() => {
-                    RNFetchBlob.fs.stat(pullFilePath)
-                    .then(stats => {
-                        const fileSize = stats.size
-                        socket.emit('videoReadyToPull', {device,fileSize,pullFilePath,timestamp,endTime})
-                    })
-                    .catch(err => console.log(err))
+                .then(() => socket.emit('videoReadyToPull', {device,pullFilePath,timestamp,endTime}))
+                .catch((err) => {
+                    console.log('ERROR copying file from cache')
+                    console.log(err)
                 })
+            })
+            .catch(error => {
+                const endTime = Date.now()
+                this.setState({recording: false})
+                socket.emit('toggleCameraRecording',device)
+                const pullFilePath = podwareCameraDir + timestamp + '_' + device + '.mp4'
+                RNFetchBlob.fs.cp(data.uri, pullFilePath)
+                .then(() => socket.emit('videoReadyToPull', {device,pullFilePath,timestamp,endTime,error}))
                 .catch((err) => {
                     console.log('ERROR copying file from cache')
                     console.log(err)
