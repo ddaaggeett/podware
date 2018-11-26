@@ -16,7 +16,7 @@ import {
 import io from 'socket.io-client'
 const socket = io.connect('http://' + serverIP + ':' + socketPort)
 
-export default class RecordingControl extends Component {
+export default class Controller extends Component {
     constructor(props) {
         super(props)
 
