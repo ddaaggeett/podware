@@ -1,5 +1,5 @@
 import {
-    socketPort_cameras,
+    socketPort,
     db_host,
     db_port,
     db_name,

@@ -5,10 +5,10 @@ handles redux action dispathes
 import * as actionCreators from '../redux/actions'
 import {
     serverIP,
-    socketPort_react,
+    socketPort,
 } from '../../config'
 import io from 'socket.io-client'
-const socket = io.connect('http://' + serverIP + ':' + socketPort_react)
+const socket = io.connect('http://' + serverIP + ':' + socketPort)
 
 function dispatchRedux(changefeedType, store, object) {
     store.dispatch(actionCreators.updateAppState(object))

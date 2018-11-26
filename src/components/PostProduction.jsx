@@ -2,10 +2,10 @@ import React, { Component } from 'react'
 import * as styles from '../assets/css/gui.css'
 import {
     serverIP,
-    socketPort_react,
+    socketPort,
 } from '../../config'
 import io from 'socket.io-client'
-const socket = io.connect('http://' + serverIP + ':' + socketPort_react)
+const socket = io.connect('http://' + serverIP + ':' + socketPort)
 
 export default class PostProduction extends Component {
     constructor(props) {

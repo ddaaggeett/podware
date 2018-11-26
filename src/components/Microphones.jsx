@@ -3,10 +3,10 @@ import * as styles from '../assets/css/microphones.css'
 import classNames from 'classnames'
 import {
     serverIP,
-    socketPort_react,
+    socketPort,
 } from '../../config'
 import io from 'socket.io-client'
-const socket = io.connect('http://' + serverIP + ':' + socketPort_react)
+const socket = io.connect('http://' + serverIP + ':' + socketPort)
 
 class Mic extends Component {
     constructor(props) {
