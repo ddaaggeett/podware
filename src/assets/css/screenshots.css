@@ -1,0 +1,12 @@
+.screenshot_object {
+    display: inline-block;
+    border: 2px solid red;
+    margin: 2px;
+}
+.screenshot_object p {
+    text-align: center;
+    font-size: 10px;
+}
+.screenshot_object img {
+    height: 500px;
+}

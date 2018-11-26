@@ -56,3 +56,12 @@ buck-out/
 *.jsbundle
 
 gradle.properties
+
+node_modules
+rethinkdb_data
+build
+src/assets/*
+!src/assets/css
+!src/assets/README.md
+recordings
+wiki

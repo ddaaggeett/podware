@@ -1,20 +1,11 @@
-### [podware](https://github.com/ddaaggeett/podware) camera module
+## podware - podcast software
+
+[please contact me](http://ddaaggeett.xyz) if you'd like to donate your cosmetically damaged smartphone devices (cracked screens included). if you're not going to get any money for it, i'll try to make it worth something, perhaps (no guarantee)
 
 development - single device
 
     npm i
     npm run android
-
-start recording from [server](https://github.com/ddaaggeett/podware/blob/master/src/sockets/index.js) with:
-
-    var io = require('socket.io').listen(port)
-    io.on('connect', (socket) => {
-        ...
-        socket.emit('startRecording')
-        ...
-        socket.emit('stopRecording')
-        ...
-    })
 
 if using multiple camera devices with podware, it's recommended you build and deploy to each device:
 
