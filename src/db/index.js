@@ -9,7 +9,7 @@ import {
     AppState,
 } from '../objects'
 import {
-    io_react,
+    io_camera,
 } from '../sockets'
 import {
     appStateChangefeeds,
@@ -29,15 +29,15 @@ r.connect({
 
     dbConnx = connection
 
-	io_react.on('connect', socket => {
+	io_camera.on('connect', socket => {
 
-        socket.on('updateAppState', newAppState => {
-            global.podware = new AppState(newAppState)
-        })
+                socket.on('updateAppState', newAppState => {
+                    global.podware = new AppState(newAppState)
+                })
 
-        // RethinkDB changefeed
-        r.table(tables.appState).changes({ includeInitial: true, squash: true }).run(connection).then(appStateChangefeeds(socket))
-        r.table(tables.recordingSessions).changes().run(connection).then(sessionsChangefeeds(socket))
+                // RethinkDB changefeed
+                r.table(tables.appState).changes({ includeInitial: true, squash: true }).run(connection).then(appStateChangefeeds(socket))
+                r.table(tables.recordingSessions).changes().run(connection).then(sessionsChangefeeds(socket))
 	})
 })
 .error(function(error) {
