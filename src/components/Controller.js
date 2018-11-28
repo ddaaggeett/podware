@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StyleSheet } from 'react-native'
+import { StyleSheet, Text } from 'react-native'
 // import Screenshots from './Screenshots'
 // import Microphones from './Microphones'
 // import Cameras from './Cameras'
@@ -42,7 +42,7 @@ export default class Controller extends Component {
     }
 
     render() {
-        return null//(
+        return <Text>controller</Text>//null//(
         //     <div>
         //         <div className={styles.controllerRow}>
         //             {

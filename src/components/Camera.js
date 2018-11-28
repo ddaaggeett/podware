@@ -122,7 +122,7 @@ export default class Camera extends Component<Props> {
     }
 
     render() {
-        return null//(
+        return <Text>camera</Text>//null//(
         //     <View style={this.state.recording ? styles.recording : styles.notRecording}>
         //         <RNCamera
         //             ref={cam => { this.camera = cam }}

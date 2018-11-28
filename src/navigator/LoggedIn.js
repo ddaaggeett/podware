@@ -1,8 +1,8 @@
-import { TabNavigator } from 'react-navigation'
+import { createBottomTabNavigator } from 'react-navigation'
 import * as screens from '../containers'
 import { store } from '../../App'
 
-const LoggedInNavigator = TabNavigator({
+const LoggedInNavigator = createBottomTabNavigator({
 	camera: {
 		screen: screens.Camera,
 		navigationOptions: {
@@ -16,7 +16,7 @@ const LoggedInNavigator = TabNavigator({
 		},
 	}
 }, {
-	order: ['controller','camera'],
+	order: ['camera','controller'],
 	initialRouteName: 'camera',
 	tabBarOptions: {
 		style: {
