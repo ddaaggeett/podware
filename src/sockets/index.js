@@ -1,18 +1,8 @@
-import {
-    socketPort,
-} from '../../config'
-import {
-    queryAllDevices,
-} from '../devices'
-import {
-    Camera,
-} from '../devices'
-import {
-    queryAvailableMicrophones,
-} from '../devices/mics/devices'
-import {
-    RecordingSession,
-} from '../objects'
+import { socketPort } from '../../config'
+import { queryAllDevices } from '../devices'
+import { Camera } from '../devices'
+import { queryAvailableMicrophones } from '../devices/mics/devices'
+import { RecordingSession } from '../objects'
 import { stopRecordingSession } from '../objects/RecordingSession'
 import { pullVideoFile } from '../objects/VideoTrack'
 

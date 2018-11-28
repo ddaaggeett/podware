@@ -1,6 +1,4 @@
-import {
-    queryAvailableMicrophones,
-} from './mics/devices'
+import { queryAvailableMicrophones } from './mics/devices'
 import { queryCameras, } from './cameras'
 var usb = require('usb')
 var fs = require('fs')
