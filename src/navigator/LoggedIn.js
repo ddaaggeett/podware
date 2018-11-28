@@ -1,7 +1,6 @@
 import { TabNavigator } from 'react-navigation'
 import * as screens from '../containers'
 import { store } from '../../App'
-import { swapWallView } from '../actions/actionCreators'
 
 const LoggedInNavigator = TabNavigator({
 	camera: {

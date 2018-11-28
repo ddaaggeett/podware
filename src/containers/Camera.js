@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 
 import Camera from '../components/Camera'
 
-import * as actionCreators from '../actions/actionCreators'
+import * as actionCreators from '../redux/actions'
 
 function mapStateToProps(state) {
 	return {

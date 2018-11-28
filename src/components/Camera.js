@@ -1,17 +1,7 @@
 import React, { Component } from 'react'
-import {
-    StatusBar,
-    StyleSheet,
-    Text,
-    View,
-    PermissionsAndroid,
-} from 'react-native'
+import { StatusBar, StyleSheet, Text, View, PermissionsAndroid } from 'react-native'
 import { RNCamera } from 'react-native-camera'
-import {
-    serverIP,
-    socketPort,
-    podwareCameraDir,
-} from './config'
+import { serverIP, socketPort, podwareCameraDir } from '../../config'
 import RNFetchBlob from 'rn-fetch-blob'
 import DeviceInfo from 'react-native-device-info'
 import KeepAwake from 'react-native-keep-awake'
@@ -132,16 +122,16 @@ export default class Camera extends Component<Props> {
     }
 
     render() {
-        return (
-            <View style={this.state.recording ? styles.recording : styles.notRecording}>
-                <RNCamera
-                    ref={cam => { this.camera = cam }}
-                    style={styles.preview}
-                    permissionDialogTitle={'Permission to use camera'}
-                    permissionDialogMessage={'We need your permission to use your camera phone'}
-                />
-            </View>
-        )
+        return null//(
+        //     <View style={this.state.recording ? styles.recording : styles.notRecording}>
+        //         <RNCamera
+        //             ref={cam => { this.camera = cam }}
+        //             style={styles.preview}
+        //             permissionDialogTitle={'Permission to use camera'}
+        //             permissionDialogMessage={'We need your permission to use your camera phone'}
+        //         />
+        //     </View>
+        // )
     }
 }
 
