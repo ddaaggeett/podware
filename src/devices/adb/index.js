@@ -1,9 +1,5 @@
 import { spawn, exec } from 'child_process'
 import { get_adb_device_list, closeAllRunningApps } from './devices'
-import {
-    io_react,
-} from '../../sockets'
-var r = require('rethinkdb')
 
 const startCameraApp = (device) => {
     return new Promise((resolve,reject) => {

@@ -3,9 +3,6 @@ import {
     recordingsDir,
     audioExt,
 } from '../../../config'
-import {
-    io_react,
-} from '../../sockets'
 import { AudioTrack } from '../../objects'
 
 export class Mic {

@@ -122,16 +122,16 @@ export default class Camera extends Component<Props> {
     }
 
     render() {
-        return <Text>camera</Text>//null//(
-        //     <View style={this.state.recording ? styles.recording : styles.notRecording}>
-        //         <RNCamera
-        //             ref={cam => { this.camera = cam }}
-        //             style={styles.preview}
-        //             permissionDialogTitle={'Permission to use camera'}
-        //             permissionDialogMessage={'We need your permission to use your camera phone'}
-        //         />
-        //     </View>
-        // )
+        return (
+            <View style={this.state.recording ? styles.recording : styles.notRecording}>
+                <RNCamera
+                    ref={cam => { this.camera = cam }}
+                    style={styles.preview}
+                    permissionDialogTitle={'Permission to use camera'}
+                    permissionDialogMessage={'We need your permission to use your camera phone'}
+                />
+            </View>
+        )
     }
 }
 
