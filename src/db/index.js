@@ -32,7 +32,7 @@ r.connect({
 	io_camera.on('connect', socket => {
 
                 socket.on('updateAppState', newAppState => {
-                    global.podware = new AppState(newAppState)
+                        global.podware.updateDB(newAppState)
                 })
 
                 // RethinkDB changefeed

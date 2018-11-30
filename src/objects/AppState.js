@@ -9,15 +9,13 @@ var r = require('rethinkdb')
 
 export class AppState {
 
-    constructor(newAppState) {
-        this.id = newAppState.id
-        this.mics = newAppState.mics
-        this.selectedMicrophones = newAppState.selectedMicrophones
-        this.cameras = newAppState.cameras
-        this.recording = newAppState.recording
-
-        this.updateDB(newAppState)
-    }
+        constructor() {
+                this.remotes = []
+                this.mics = []
+                this.selectedMicrophones = []
+                this.cameras = []
+                this.recording = false
+        }
 
     updateDB(newAppState) {
         r.table(tables.appState).update(newAppState).run(dbConnx)
