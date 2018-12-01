@@ -2,7 +2,7 @@ import {
     exec,
 } from 'child_process'
 import {
-    io_camera,
+    io_remote,
 } from '../../sockets'
 
 export const queryAvailableMicrophones = () => {
@@ -31,5 +31,5 @@ export const setAvailableMicrophones = (textBlob) => {
             }
         }
     }
-    io_camera.sockets.emit('logAvailableMicrophones', audioDeviceList)
+    io_remote.sockets.emit('logAvailableMicrophones', audioDeviceList)
 }

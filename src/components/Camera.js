@@ -7,7 +7,7 @@ import DeviceInfo from 'react-native-device-info'
 import KeepAwake from 'react-native-keep-awake'
 import io from 'socket.io-client/dist/socket.io'
 const socket = io.connect('http://' + serverIP + ':' + socketPort)
-const device = DeviceInfo.getSerialNumber()
+const serial = DeviceInfo.getSerialNumber()
 
 export default class Camera extends Component<Props> {
 
@@ -42,11 +42,11 @@ export default class Camera extends Component<Props> {
     }
 
     componentDidMount() {
-        socket.emit('cameraConnected', device)
-        socket.on('queryCamera', () => socket.emit('cameraConnected', device))
+        socket.emit('remoteConnected', {serial})
+        socket.on('queryRemote', () => socket.emit('remoteConnected', {serial}))
         socket.on('capture', () => this.takePicture())
         socket.on('startRecording', (timestamp) => {
-            console.log('video started recording on ' + device)
+            console.log('video started recording on ' + serial)
             this.startRecording(timestamp)
         })
         socket.on('stopRecording', () => {
@@ -73,15 +73,15 @@ export default class Camera extends Component<Props> {
                 mute: true,
             }
             this.setState({recording: true})
-            socket.emit('toggleCameraRecording',device)
+            socket.emit('toggleCameraRecording',serial)
             this.camera.recordAsync(options)
             .then((data) => {
                 const endTime = Date.now()
                 this.setState({recording: false})
-                socket.emit('toggleCameraRecording',device)
-                const pullFilePath = podwareCameraDir + timestamp + '_' + device + '.mp4'
+                socket.emit('toggleCameraRecording',serial)
+                const pullFilePath = podwareCameraDir + timestamp + '_' + serial + '.mp4'
                 RNFetchBlob.fs.cp(data.uri, pullFilePath)
-                .then(() => socket.emit('videoReadyToPull', {device,pullFilePath,timestamp,endTime}))
+                .then(() => socket.emit('videoReadyToPull', {serial,pullFilePath,timestamp,endTime}))
                 .catch((err) => {
                     console.log('ERROR copying file from cache')
                     console.log(err)
@@ -90,10 +90,10 @@ export default class Camera extends Component<Props> {
             .catch(error => {
                 const endTime = Date.now()
                 this.setState({recording: false})
-                socket.emit('toggleCameraRecording',device)
-                const pullFilePath = podwareCameraDir + timestamp + '_' + device + '.mp4'
+                socket.emit('toggleCameraRecording',serial)
+                const pullFilePath = podwareCameraDir + timestamp + '_' + serial + '.mp4'
                 RNFetchBlob.fs.cp(data.uri, pullFilePath)
-                .then(() => socket.emit('videoReadyToPull', {device,pullFilePath,timestamp,endTime,error}))
+                .then(() => socket.emit('videoReadyToPull', {serial,pullFilePath,timestamp,endTime,error}))
                 .catch((err) => {
                     console.log('ERROR copying file from cache')
                     console.log(err)

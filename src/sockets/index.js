@@ -6,7 +6,7 @@ import { RecordingSession } from '../objects'
 import { stopRecordingSession } from '../objects/RecordingSession'
 import { pullVideoFile } from '../objects/VideoTrack'
 
-export const io_camera = require('socket.io').listen(socketPort)
+export const io_remote = require('socket.io').listen(socketPort)
 
 io_camera.on('connect', (socket) => {
     const remoteAddress = socket.handshake.address.split(':')

@@ -9,7 +9,7 @@ import {
     AppState,
 } from '../objects'
 import {
-    io_camera,
+    io_remote,
 } from '../sockets'
 import {
     appStateChangefeeds,
@@ -29,7 +29,7 @@ r.connect({
 
     dbConnx = connection
 
-	io_camera.on('connect', socket => {
+	io_remote.on('connect', socket => {
 
                 socket.on('updateAppState', newAppState => {
                         global.podware.updateDB(newAppState)

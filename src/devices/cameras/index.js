@@ -1,5 +1,5 @@
 import { exec, spawn } from 'child_process'
-import { io_camera } from '../../sockets'
+import { io_remote } from '../../sockets'
 import { VideoTrack } from '../../objects'
 import { adbPort } from '../../../config'
 
@@ -68,5 +68,5 @@ export class Camera {
 }
 
 export const queryCameras = () => {
-    io_camera.sockets.emit('queryCamera')
+    io_remote.sockets.emit('queryCamera')
 }

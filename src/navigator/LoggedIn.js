@@ -1,12 +1,12 @@
-import { createBottomTabNavigator } from 'react-navigation'
+import { createMaterialTopTabNavigator } from 'react-navigation'
 import * as screens from '../containers'
 import { store } from '../../App'
 
-const LoggedInNavigator = createBottomTabNavigator({
+const LoggedInNavigator = createMaterialTopTabNavigator({
 	camera: {
 		screen: screens.Camera,
 		navigationOptions: {
-			header: null,
+			tabBarVisible: false,
 		},
 	},
 	controller: {
@@ -18,6 +18,7 @@ const LoggedInNavigator = createBottomTabNavigator({
 }, {
 	order: ['camera','controller'],
 	initialRouteName: 'camera',
+	swipeEnabled: true,
 	tabBarOptions: {
 		style: {
 			backgroundColor: '#555',

@@ -10,8 +10,10 @@ import {
     serverIP,
     socketPort,
 } from '../../config'
+import DeviceInfo from 'react-native-device-info'
 import io from 'socket.io-client'
 const socket = io.connect('http://' + serverIP + ':' + socketPort)
+const serial = DeviceInfo.getSerialNumber()
 
 export default class Controller extends Component {
     constructor(props) {
@@ -30,6 +32,11 @@ export default class Controller extends Component {
         })
     }
 
+        componentDidMount() {
+                socket.emit('remoteConnected', {serial})
+                socket.on('queryRemote', () => socket.emit('remoteConnected', {serial}))
+        }
+
     handleFullRecordStart() {
         console.log('start recording all devices')
         const session = Date.now()
@@ -42,7 +49,14 @@ export default class Controller extends Component {
         socket.emit('stopRecordingSession', {name})
     }
 
+        handleNewController() {
+                console.log('\nthis.props')
+                console.log(this.props)
+                socket.emit('setRemoteAsController', {serial})
+        }
+
         render() {
+                var promptToControl = true
                 return (
                         <View>
                                 {
@@ -58,6 +72,7 @@ export default class Controller extends Component {
                                 {/*<Microphones {...this.props} />
                                 <Cameras {...this.props} />
                                 <Sessions {...this.props} />*/}
+                                {promptToControl ? <Button title="use this device as Controller" onPress={() => this.handleNewController()} /> : null}
                         </View>
                 )
         }

@@ -1,5 +1,5 @@
 import {
-    io_camera,
+    io_remote,
 } from '../sockets'
 import {
     recordAudioDevice,
@@ -37,7 +37,7 @@ export class RecordingSession {
     }
 
     recordVideo() {
-        io_camera.sockets.emit('startRecording', this.session)
+        io_remote.sockets.emit('startRecording', this.session)
     }
 
     readyMediaFileDir() {
@@ -55,7 +55,7 @@ export const stopRecordingSession = (name) => {
     global.podware.currentRecordingSession.name = name
     global.podware.currentRecordingSession.lastEditTime = Date.now()
     killAllAudioInput()
-    io_camera.sockets.emit('stopRecording')
+    io_remote.sockets.emit('stopRecording')
     global.podware.recording = false
     global.podware.updateDB(global.podware)
 }
