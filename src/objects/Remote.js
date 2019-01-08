@@ -4,7 +4,6 @@ export class Remote {
         constructor(serial) {
                 console.log('new Remote')
                 this.serial = serial
-                this.isController = false
                 this.connect()
         }
 
@@ -15,7 +14,7 @@ export class Remote {
                         global.podware.remotes.push(this)
                 }
                 else {
-                        const index = remotes.findIndex(x => remotes[x].serial == this.serial)
+                        const index = remotes.findIndex(x => x.serial == this.serial)
                         if(index == -1) {
                                 global.podware.remotes.push(this)
                         }
@@ -52,8 +51,6 @@ export const queryRemotes = () => {
 }
 
 export const setRemoteAsController = (serial) => {
-        global.podware.remotes.forEach(remote => {
-                if(serial == remote.serial) remote.update({isController: true})
-                else remote.update({isController: false})
-        })
+        global.podware.controller = serial
+        global.podware.updateDB(global.podware)
 }

@@ -10,7 +10,7 @@ import { pullVideoFile } from '../objects/VideoTrack'
 export const io_remote = require('socket.io').listen(socketPort)
 
 io_remote.on('connect', (socket) => {
-    socket.on('remoteConnected', data => remote = new Remote(data.serial))
+    socket.on('remoteConnected', data => new Remote(data.serial))
     socket.on('setRemoteAsController', data => setRemoteAsController(data.serial))
     /*
     socket.on('videoReadyToPull', data => pullVideoFile(data,camera))

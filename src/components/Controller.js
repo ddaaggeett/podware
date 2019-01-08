@@ -18,7 +18,6 @@ const serial = DeviceInfo.getSerialNumber()
 export default class Controller extends Component {
     constructor(props) {
         super(props)
-        this.state = {}
 
         socket.emit('queryAllDevices')
 
@@ -50,13 +49,15 @@ export default class Controller extends Component {
     }
 
         handleNewController() {
-                console.log('\nthis.props')
-                console.log(this.props)
                 socket.emit('setRemoteAsController', {serial})
         }
 
+        isController() {
+                return (this.props.app.controller == serial)
+        }
+
         render() {
-                var promptToControl = true
+                this.isController() ? null : this.props.navigation.navigate('camera')
                 return (
                         <View>
                                 {
@@ -72,7 +73,7 @@ export default class Controller extends Component {
                                 {/*<Microphones {...this.props} />
                                 <Cameras {...this.props} />
                                 <Sessions {...this.props} />*/}
-                                {promptToControl ? <Button title="use this device as Controller" onPress={() => this.handleNewController()} /> : null}
+                                {this.isController() ? null : <Button title="use this device as Controller" onPress={() => this.handleNewController()} />}
                         </View>
                 )
         }
