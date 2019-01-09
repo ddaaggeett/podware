@@ -8,7 +8,7 @@ export default class App extends Component {
     }
 
     render() {
-        if(this.props.app.isPostProduction) return <PostProduction {...this.props} />
+        if(this.props.podware.isPostProduction) return <PostProduction {...this.props} />
         else return <RecordingControl {...this.props} />
     }
 }

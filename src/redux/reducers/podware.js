@@ -5,7 +5,7 @@ const initialState = {
     isPostProduction: false,
 }
 
-const app = (state = initialState, action) => {
+const podware = (state = initialState, action) => {
     switch(action.type) {
         case 'UPDATE_APP_STATE':
             return action.newAppState
@@ -14,4 +14,4 @@ const app = (state = initialState, action) => {
     }
 }
 
-export default app
+export default podware

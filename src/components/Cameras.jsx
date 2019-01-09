@@ -42,10 +42,10 @@ export default class Cameras extends Component {
     }
 
     render() {
-        if(this.props.app.cameras.length != 0) return (
+        if(this.props.podware.cameras.length != 0) return (
             <div className={styles.microphones}>
                 <div className={styles.microphonesTitle}>your cameras:</div>
-                <CameraList list={this.props.app.cameras} {...this.props} />
+                <CameraList list={this.props.podware.cameras} {...this.props} />
             </div>
         )
         else return <div>turn on your cameras</div>

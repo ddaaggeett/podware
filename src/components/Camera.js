@@ -44,7 +44,6 @@ export default class Camera extends Component<Props> {
     componentDidMount() {
         socket.emit('remoteConnected', {serial})
         socket.on('queryRemote', () => socket.emit('remoteConnected', {serial}))
-        socket.on('capture', () => this.takePicture())
         socket.on('startRecording', (timestamp) => {
             console.log('video started recording on ' + serial)
             this.startRecording(timestamp)
@@ -52,19 +51,6 @@ export default class Camera extends Component<Props> {
         socket.on('stopRecording', () => {
             this.camera.stopRecording()
         })
-    }
-
-    takePicture = async function() {
-        if (this.camera) {
-            const options = {
-                quality: 0.5,
-                base64: true
-            }
-            this.camera.takePictureAsync(options)
-            .then((data) => {
-                console.log(data.uri);
-            })
-        }
     }
 
     startRecording = async function(timestamp) {

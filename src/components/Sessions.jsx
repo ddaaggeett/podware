@@ -14,7 +14,7 @@ class Session extends Component {
     }
 
     enterPostProduction(id) {
-        const currentAppState = this.props.app
+        const currentAppState = this.props.podware
         const newAppState = {
             ...currentAppState,
             postProductionSessionID: id,
@@ -53,10 +53,10 @@ export default class Sessions extends Component {
     }
 
     render() {
-        if(this.props.app.availableSessions != undefined) return (
+        if(this.props.podware.availableSessions != undefined) return (
             <div className={styles.microphones}>
                 <div className={styles.microphonesTitle}>recording sessions ready for post produdction:</div>
-                <SessionList list={this.props.app.availableSessions} {...this.props} />
+                <SessionList list={this.props.podware.availableSessions} {...this.props} />
             </div>
         )
         else return <div>no recording sessions ready for post production</div>

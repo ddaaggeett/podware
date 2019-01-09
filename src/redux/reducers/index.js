@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
-import app from './app'
+import podware from './podware'
 
 export default combineReducers({
-    app,
+    podware,
 })

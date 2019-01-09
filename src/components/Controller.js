@@ -22,7 +22,7 @@ export default class Controller extends Component {
         socket.emit('queryAllDevices')
 
         socket.on('logAvailableMicrophones', audioDeviceList => {
-            const currentAppState = this.props.app
+            const currentAppState = this.props.podware
             const newAppState = {
                 ...currentAppState,
                 mics: audioDeviceList,
@@ -53,7 +53,7 @@ export default class Controller extends Component {
         }
 
         isController() {
-                return (this.props.app.controller == serial)
+                return (this.props.podware.controller == serial)
         }
 
         render() {
@@ -61,7 +61,7 @@ export default class Controller extends Component {
                 return (
                         <View>
                                 {
-                                this.props.app.recording ?
+                                this.props.podware.recording ?
                                 <Button className={[styles.recordingControlButton,styles.stopButton]} title="STOP" onPress={() => this.handleFullRecordStop()} /> :
                                 <Button className={[styles.recordingControlButton,styles.startButton]} title="START" onPress={() => this.handleFullRecordStart()} />
                                 }

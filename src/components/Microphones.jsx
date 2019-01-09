@@ -14,8 +14,8 @@ class Mic extends Component {
     }
 
     setSelectedMicrophones(index) {
-        var selectedMicrophones = this.props.app.selectedMicrophones
-        const currentAppState = this.props.app
+        var selectedMicrophones = this.props.podware.selectedMicrophones
+        const currentAppState = this.props.podware
         var newAppState
         if(!selectedMicrophones.includes(index)) { // ADD MIC
             selectedMicrophones.push(index)
@@ -40,7 +40,7 @@ class Mic extends Component {
     }
 
     render() {
-        const isSelected = this.props.app.selectedMicrophones.includes(this.props.index)
+        const isSelected = this.props.podware.selectedMicrophones.includes(this.props.index)
         const micStyle = classNames(
             styles.micItem,
             isSelected ? styles.micItemSelect : styles.micItemUnSelect
@@ -84,7 +84,7 @@ export default class Microphones extends Component {
         return (
             <div className={styles.microphones}>
                 <div className={styles.microphonesTitle}>select your microphones:</div>
-                <MicrophoneList list={this.props.app.mics} {...this.props} />
+                <MicrophoneList list={this.props.podware.mics} {...this.props} />
             </div>
         )
     }

@@ -14,7 +14,7 @@ export default class PostProduction extends Component {
 
     handleExitPostProduction() {
         const newAppState = {
-            ...this.props.app,
+            ...this.props.podware,
             isPostProduction: false,
         }
         socket.emit('updateAppState', newAppState)
@@ -24,7 +24,7 @@ export default class PostProduction extends Component {
         return (
             <div>
                 <div className={styles.recordingControlButton} onClick={() => this.handleExitPostProduction()}>exit</div>
-                <div>this is post production for {this.props.app.postProductionSessionID}</div>
+                <div>this is post production for {this.props.podware.postProductionSessionID}</div>
             </div>
         )
     }
