@@ -8,7 +8,7 @@ import * as actionCreators from '../redux/actions'
 
 function mapStateToProps(state) {
 	return {
-		app: state.app,
+		podware: state.podware,
 	}
 }
 

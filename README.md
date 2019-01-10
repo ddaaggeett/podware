@@ -1,6 +1,6 @@
 ## podware - podcast software - [GPL-3.0](https://github.com/ddaaggeett/podware/blob/master/LICENSE)
 
-[please contact me](http://ddaaggeett.xyz) if you'd like to donate your cosmetically damaged smartphone devices (cracked screens included). if you're not going to get any money for it, i'll try to make it worth something, perhaps (no guarantee)
+[please contact me](https://ddaaggeett.github.io/ddaaggeett/contact) if you'd like to donate your cosmetically damaged smartphone devices (cracked screens included). if you're not going to get any money for it, i'll try to make it worth something, perhaps (no guarantee)
 
 #### if developing
 

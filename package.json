@@ -1,6 +1,7 @@
 {
   "name": "podware",
   "license": "GPL-3.0",
+  "author": "Dave Daggett <http://ddaaggeett.xyz>",
   "description": "podcast software",
   "version": "0.1.0",
   "private": true,
