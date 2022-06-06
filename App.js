@@ -1,25 +1,20 @@
-import React, { Component } from 'react';
-import { Provider } from 'react-redux'
-import { getRootNavigator } from './src/navigator'
-import changefeedListeners from './src/db/changefeed-listeners'
-import { store } from './src/redux';
+import { StatusBar } from 'expo-status-bar';
+import { StyleSheet, Text, View } from 'react-native';
 
-changefeedListeners(store)
-
-const AppContainer = getRootNavigator()
-
-export default class App extends Component {
-	constructor(props) {
-		super(props)
-	}
-	render() {
-		return (
-			<Provider store={store}>
-				<AppContainer
-                                        onNavigationStateChange={null}
-                                        uriPrefix="/app"
-                                        />
-			</Provider>
-		)
-	}
+export default function App() {
+  return (
+    <View style={styles.container}>
+      <Text>Open up App.js to start working on your app!</Text>
+      <StatusBar style="auto" />
+    </View>
+  );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
